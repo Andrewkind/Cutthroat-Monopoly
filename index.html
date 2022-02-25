@@ -1,0 +1,1030 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cutthroat Monopoly</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/messi.min.css" type="text/css" media="screen" />	
+	<link rel="stylesheet" href="dist/jquery.slotmachine.css" type="text/css" media="screen" />
+	<!-- <link rel="stylesheet" href="fireworks/stylesheets/normalize.css" type="text/css" media="screen" /> -->
+	<!-- <link rel="stylesheet" href="fireworks/stylesheets/stylesheet.css" type="text/css" media="screen" /> -->
+	<!-- <link rel="stylesheet" href="fireworks/stylesheets/github-light.css" type="text/css" media="screen" /> -->
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	 crossorigin="anonymous"></script>
+	<script type="text/javascript" src="dist/jquery.slotmachine.js"></script>
+	<script type="text/javascript" src="dist/messi.min.js"></script>
+	
+	<!-- <script type="text/javascript" src="fireworks/jquery.fireworks.js"></script> -->
+
+</head>
+
+<body>
+	<div class="header-line"></div>
+
+
+
+	<!-- Flight example -->
+	<div id="chance" class="container">
+		<div class="row content">
+			<div class="col-md-12 col-lg-8 col-lg-offset-2">
+				<div>
+					<div class="btn-group btn-group-justified btn-group-randomize btn-group-chance" role="group">
+						<div id="ChanceButton" type="button" class="btn btn-success btn-lg btn-img chance-button">CHANCE</div>
+					</div>
+				</div>
+				<div class="well">
+
+					<div id="chanceMachine">
+
+					</div>
+
+					<script>
+
+						var locations = [];
+						var chanceMachine;
+						$(document).ready(function () {
+
+
+
+
+							$("#ChanceButton").click(function () {
+
+								chanceMachine.shuffle(5, onComplete);
+							});
+
+							SetupMachine();
+
+							$("#chanceMachine").empty();
+
+							PreloadChanceWithCatchUp();
+							chanceMachine = $("#chanceMachine").slotMachine({
+								active: 0,
+								delay: 550
+							});
+						});
+
+						function PreloadChanceWithCatchUp() {
+
+							var myevent = "<strong>Player with least property cards gets one random</strong>. Roll if tied.";
+
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "<strong>Player with least money gets 200k from each player</strong>.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "<strong>Oil prices sky rocket! All players receive 500k</strong>.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							//Earthquake
+							// var max = locations.length;
+							// var rand = Math.floor((Math.random() * max));
+							// while (locations[rand].color == "utility" || locations[rand].color == "airport") {
+							// 	rand = Math.floor((Math.random() * max));
+							// }
+							// myevent = "<strong>Earthquake!!</strong> Lose one house (or downgrade hotel) on each <strong> " + locations[rand].color + " </strong>color";
+							// $("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							//aliien
+							// max = locations.length;
+							// rand = Math.floor((Math.random() * max));
+							// while (locations[rand].color == "utility" || locations[rand].color == "airport") {
+							// 	rand = Math.floor((Math.random() * max));
+							// }
+							// myevent = "<strong>UFO is spotted!!</strong> It shoots a laser at <strong>" + locations[rand].loc + " </strong>. All property destroyed there..";
+							// $("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							//money events
+							var amount = "500 Thousand Dollars";
+							var direction = "left";
+							rand = Math.floor((Math.random() * 1));
+							if (rand == 0) {
+								direction = "right";
+							}
+
+							rand = Math.floor((Math.random() * 5) + 1);
+							if (rand == 1) {
+								amount = "One Million Dollars";
+
+							}
+							else if (rand == 2) {
+								amount = "2 Million Dollars";
+
+							}
+
+							myevent = "Player to your <strong>" + direction + " </strong> owes you <strong>" + amount + "</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							// Give Money :(!
+							amount = "500 Thousand Dollars";
+							direction = "left";
+							rand = Math.floor((Math.random() * 1));
+							if (rand == 0) {
+								direction = "right";
+							}
+
+							rand = Math.floor((Math.random() * 5) + 1);
+							if (rand == 1) {
+								amount = "One Million Dollars";
+
+							}
+							else if (rand == 2) {
+								amount = "2 Million Dollars";
+
+							}
+
+							myevent = "You ower player to your <strong>" + direction + " " + amount + "</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Canadian dollar is on the rise. You get 50k from the bank.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "<strong> You go betting on horses...</strong> Oh no you lose 300k!";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "If you are Seeing Distance from GO, Collect 200k  <strong> WOOHOO</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "<strong> It's the Fuzz! RUN!</strong> Everyone roll. Lowest roll goes directly to jail.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You are picked for Jury Duty.. <strong> Pick a player to go to jail.</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Your ebay account starts take off. Receive 100k from bank.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You create a new cheese.. what is it called? Receive 250k from international sales.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You sell a cat to the gov't. Receive 50k.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Divorce alimony! Your ex takes one property. Pick a property and give to bank.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You divorce your millionaire tycoon. Pick a player to give you a property of their choice. Must not contain asset.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You become sick and rush to the hospital! Pay 0$ to hospital";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Advance to the nearest utility. Pay double if owned."
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You decide to help a stranger. <strong>they sue you.</strong> Pay 125k lawyer fees.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "Go directly to jail. Do not collect 200k.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Roll dice, lowest player must sacrifice either house, card, or 300k";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							rand = Math.floor((Math.random() * 12) + 1);
+							myevent = "Advance " + rand + " steps forward.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							rand = Math.floor((Math.random() * 12) + 1);
+							myevent = "Go back " + rand + " steps.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							rand = Math.floor((Math.random() * 2) + 1);
+							myevent = "Pick a player (including you). They Advance " + rand + " steps forward and play as if their turn for moment.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							rand = Math.floor((Math.random() * 2) + 1);
+							myevent = "Pick a player (including you). They go back " + rand + " steps.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You forgot to do your taxes. The bank is requesting 10% of your cash roll.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You are pulled over for speeding. Pay 100k.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You have unpaid library fees. Pay 50k";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You buy a studio loft in Victoria. Pay 1 million dollars to bank.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Trudeau introduces tax on carbon tax. All players pay 1 million.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You can buy a card from bank for 200k";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Is there anyone in jail? Go consult them, go Visit Jail.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "The bank gives you 10k because it's cheap as fuck.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "The Liberals gain more power. Everyone give bank 150k";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "<strong>Advance to the next Corner block!</strong> Collect 200k if you land on Go.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Trudeau attempts to prove planet is flat. He somehow succeeds. Lose 100k from savings.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You open up a Target in Canada. Lose 500k..";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You open up a Tim Hortons. It is a huge success. Receive 200k";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Pick a player. Switch places with them. You can buy and must pay rent, other player does not play chance.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Gov't needs to build a highway through your property. Trade one house for 500k if you can.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Gov't needs to build a highway through your property.  <strong>Trade one house for 200k if you can. </strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Bank puts a  <strong>random </strong> property on auction.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = " <strong>Bank offers to sell you a random property for double cost. </strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Apple stock goes public! <strong>Every player invests 50k. </strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = " <strong>Pick a player. </strong> They would love to donate a house (their choice) to your cheapest capable property if possible.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You trick everyone to go to church with you. Whatever you donate, they must match at 1.5x times.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "You go to casino in Vegas with your bff. Pick a player, both roll one dice. Highest  gets 200k from loser";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Spice things up. If all players have vacant property, and agree, put a property in a hat and each get one at random.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Bank gives you one Card at random.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Pick a player. They get one Card from bank!";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You suspect foul play in your restaurant business. You sneak around. <strong>Advance to nearest players location.</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "If you want, pay 500k to advance to FREE PARKING and get a shot at the lottery!";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You enter a poker tournament! You win 400k!";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "EI.. ugh! If you are the only player without a <strong>set</strong> (all colors or utilities), receive 2 million from bank as investment.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Property taxes increase. Pay 200k for  <strong>each house and 500k for each hotel </strong> you own.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Each player gets one shot at the Slot Machine.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You want to help your old business partner. Pick a player. They get a free house if they can place it on legal property (need all colors)";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You are loved by the people. A pillar to the community. Each players gives you either 500k";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "A card of your choice goes on auction!";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Pick a player. You accuse them of money laundering. They pay 500k or go to jail.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Pick a player. They go to Peggy's Cove. Do not collect 200k.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Being landlord was good this year. Receive 200k for each house and 500k for each hotel you own.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Economy sucks. Player closest to Free Parking robs a bank. Receive 1.5 million and go to jail.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "You win at the newest Survivor season! Get an <strong>Immunity Card!</strong>";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You win a raffle. Free stay at the next resort! <strong>Get a Coupon!</strong> Present Coupon to compensate next rent payment.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You are arrested and police punch you. Your lawyer pleas police brutality. Get a Get out of jail Card.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "You become Prime Minister! Take any card (jail/coupon/immunity) from a player of your choice. It's good to be king.";
+							$("#chanceMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+						}
+						function SetupMachine() {
+
+							var loc = { loc: "CN Tower", color: "darkblue" };
+
+
+
+							locations.push(loc);
+
+							locations.push({ loc: "Niagara Falls", color: "darkblue" });
+
+							locations.push({ loc: "Cabot Trail", color: "purple" });
+							locations.push({ loc: "Peggy's Cove", color: "purple" });
+
+							locations.push({ loc: "Confederation Bridge", color: "lightblue" });
+							locations.push({ loc: "Grand Prix of Canada", color: "lightblue" });
+							locations.push({ loc: "West Edmonton Mall", color: "lightblue" });
+
+							locations.push({ loc: "Perce Rock", color: "pink" });
+							locations.push({ loc: "Magnetic Hill", color: "pink" });
+							locations.push({ loc: "Rogers Centre", color: "pink" });
+
+							locations.push({ loc: "Churchill Manitoba", color: "orange" });
+							locations.push({ loc: "Assinboine Park", color: "orange" });
+							locations.push({ loc: "Tunnels of Moosejaw", color: "orange" });
+
+							locations.push({ loc: "Calgary Stampede", color: "red" });
+							locations.push({ loc: "Banff National Park", color: "red" });
+							locations.push({ loc: "Cabot Trail", color: "red" });
+
+							locations.push({ loc: "Ridea Canal", color: "yellow" });
+							locations.push({ loc: "Yorkville", color: "yellow" });
+							locations.push({ loc: "Parliament Hill", color: "yellow" });
+
+							locations.push({ loc: "Robson Street", color: "green" });
+							locations.push({ loc: "Sainte-Catherne Street", color: "green" });
+							locations.push({ loc: "Yonge Street", color: "green" });
+
+							locations.push({ loc: "St Johns International Airport", color: "airport" });
+							locations.push({ loc: "Vancouver International Airport", color: "airport" });
+							locations.push({ loc: "Montreal Trudeau Airport", color: "airport" });
+							locations.push({ loc: "Toronto Pearson Airport", color: "airport" });
+
+							locations.push({ loc: "Cellular", color: "utility" });
+							locations.push({ loc: "Internet", color: "utility" });
+
+						}
+
+
+						function onComplete(active) {
+
+							switch (this.element[0].id) {
+								case 'machine1':
+									$("#machine1Result").text("Index: " + this.active);
+									break;
+								case 'machine2':
+									$("#machine2Result").text("Index: " + this.active);
+									break;
+								case 'machine3':
+									$("#machine3Result").text("Index: " + this.active);
+									break;
+							}
+						}
+
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Flight example -->
+	<div id="chest" class="container">
+		<div class="row content">
+			<div class="col-md-12 col-lg-8 col-lg-offset-2">
+				<div>
+					<div class="btn-group btn-group-justified btn-group-randomize btn-group-chest" role="group">
+						<div id="ChestButton" type="button" class="btn btn-primary btn-lg btn-img chest-button">COMMUNITY CHEST</div>
+					</div>
+				</div>
+				<div class="well">
+
+					<div id="chestMachine">
+
+					</div>
+
+					<script>
+
+						var locations = [];
+						var chestMachine;
+						$(document).ready(function () {
+
+
+
+
+							$("#ChestButton").click(function () {
+
+								chestMachine.shuffle(5, onCompleteChest);
+							});
+
+							SetupMachine();
+
+							$("#chestMachine").empty();
+							PreloadChestMachine();
+
+
+
+							chestMachine = $("#chestMachine").slotMachine({
+								active: 0,
+								delay: 550
+							});
+						});
+
+						var chestCount = 0;
+						function onCompleteChest(active) {
+							chestCount = + 1;
+							console.log(active);
+						}
+
+
+						function SetupMachine() {
+
+							var loc = { loc: "CN Tower", color: "darkblue" };
+
+
+
+							locations.push(loc);
+
+							locations.push({ loc: "Niagara Falls", color: "darkblue" });
+
+							locations.push({ loc: "Cabot Trail", color: "purple" });
+							locations.push({ loc: "Peggy's Cove", color: "purple" });
+
+							locations.push({ loc: "Confederation Bridge", color: "lightblue" });
+							locations.push({ loc: "Grand Prix of Canada", color: "lightblue" });
+							locations.push({ loc: "West Edmonton Mall", color: "lightblue" });
+
+							locations.push({ loc: "Perce Rock", color: "pink" });
+							locations.push({ loc: "Magnetic Hill", color: "pink" });
+							locations.push({ loc: "Rogers Centre", color: "pink" });
+
+							locations.push({ loc: "Churchill Manitoba", color: "orange" });
+							locations.push({ loc: "Assinboine Park", color: "orange" });
+							locations.push({ loc: "Tunnels of Moosejaw", color: "orange" });
+
+							locations.push({ loc: "Calgary Stampede", color: "red" });
+							locations.push({ loc: "Banff National Park", color: "red" });
+							locations.push({ loc: "Cabot Trail", color: "red" });
+
+							locations.push({ loc: "Ridea Canal", color: "yellow" });
+							locations.push({ loc: "Yorkville", color: "yellow" });
+							locations.push({ loc: "Parliament Hill", color: "yellow" });
+
+							locations.push({ loc: "Robson Street", color: "green" });
+							locations.push({ loc: "Sainte-Catherne Street", color: "green" });
+							locations.push({ loc: "Yonge Street", color: "green" });
+
+							locations.push({ loc: "St Johns International Airport", color: "airport" });
+							locations.push({ loc: "Vancouver International Airport", color: "airport" });
+							locations.push({ loc: "Montreal Trudeau Airport", color: "airport" });
+							locations.push({ loc: "Toronto Pearson Airport", color: "airport" });
+
+							locations.push({ loc: "Cellular", color: "utility" });
+							locations.push({ loc: "Internet", color: "utility" });
+
+						}
+
+						function PreloadChestMachine() {
+							var x;
+							for (x = 0; x < locations.length; x++) {
+								var myevent = "<strong>Go to " + locations[x].loc + "!</strong> Collect 200k if you pass Go.";
+								$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							}
+
+
+
+							myevent = "All Scorpio get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Gemini get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Leo get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Aries get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Taurus get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Capricorns get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "It's Atrology time! All Crabs get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Libras get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Virgos get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Sagittarius get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Capricorns get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Aquarius get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "All Pisces get 500k :)";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You run away from the police!! Roll dice, if odd, go to jail!";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Connor McDavid is injured. Province goes to Martial Law. Next player rolls with one dice only.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Gentrification occurs nearby. Pick a player. If you are missing a final color piece for properties that they have, you can buy it for double cost value";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You can pick a property a player owns that has no assets. Buy it for double cost value.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You can <strong>pick a property a player</strong> owns that has no assets. Buy it for double cost value.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You win at the newest Survivor season! Get an <strong>Immunity Card!</strong>";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You win a raffle. Free stay at the next resort! <strong>Get a Coupon!</strong> Present Coupon to compensate next rent payment.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You are arrested and police punch you. Your lawyer pleas police brutality. Get a Get out of jail Card.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "You are sponsored on the next House with Holmes! Receive one free house/hotel if you can place it.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You can pick a property you own with no assets and trade it with a random property from bank.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "We all go to the fair! It's a <strong>carousel</strong>! If every player can, each player gives a property no asset to the left. If even one can't, abort.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "Give one property to bank of your choice that has no assets. The bank gives you two at random in return.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "You decide to sell sell sell before housing market bursts. Pick a house to auction. All other players can bid and then put house on valid property. If no valid, give to bank.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Roll a dice. If its odd, give each player 100k. If its even, receive 200k from each player.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							// originals
+
+							myevent = "From sale of stock you get $500 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Advance to go. Collect 200k.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "From sale of stock you get $500 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+
+							myevent = "Bank error in your favor – Collect $200 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Veterinary fees. Pay $50 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+							myevent = "Receive Get out of jail card";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Go to Jail – Go directly to jail – Do not pass Go";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Receive Get out of jail card";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+
+
+							myevent = "Grand Opera Night {Opening} – Collect $50 000 from every player for opening night seats ";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Christmas Fund matures - Receive $100 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Income tax refund – Collect $20 000 ";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "It is your birthday - Collect $10 000 from each player";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Life insurance matures – Collect $100 000 ";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Pay government fees. Pay Carbon Tax $100 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Pay school fees of $150 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "Receive $25 000 consultancy fee";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							
+							myevent = "You are assessed for street repairs – $40 000 per house – $115 000 per hotel ";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "You have won second prize in a beauty contest – Collect $10 000";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							myevent = "You inherit $100 000. Buy yacht, world tour, Rolls Royce.";
+							$("#chestMachine").append("<div class=\"text-center>\"> " + myevent + " </div>");
+							
+
+						}
+
+
+						function onComplete(active) {
+
+							switch (this.element[0].id) {
+								case 'machine1':
+									$("#machine1Result").text("Index: " + this.active);
+									break;
+								case 'machine2':
+									$("#machine2Result").text("Index: " + this.active);
+									break;
+								case 'machine3':
+									$("#machine3Result").text("Index: " + this.active);
+									break;
+							}
+						}
+
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Slot machine example -->
+	<div id="casino" style="padding-top:50px;">
+		<div class="content">
+			<h1>FREE PARKING</h1>
+
+			<div>
+				<div id="casino1" class="slotMachine" style="margin-left: -65px;">
+					<div class="slot slot1"></div>
+					<div class="slot slot2"></div>
+					<div class="slot slot3"></div>
+					<div class="slot slot4"></div>
+					<div class="slot slot5"></div>
+					<div class="slot slot6"></div>
+				</div>
+
+				<div id="casino2" class="slotMachine">
+					<div class="slot slot1"></div>
+					<div class="slot slot2"></div>
+					<div class="slot slot3"></div>
+					<div class="slot slot4"></div>
+					<div class="slot slot5"></div>
+					<div class="slot slot6"></div>
+				</div>
+
+				<div id="casino3" class="slotMachine">
+					<div class="slot slot1"></div>
+					<div class="slot slot2"></div>
+					<div class="slot slot3"></div>
+					<div class="slot slot4"></div>
+					<div class="slot slot5"></div>
+					<div class="slot slot6"></div>
+				</div>
+
+				<div class="btn-group btn-group-justified btn-group-casino" role="group">
+					<div id="slotMachineButtonShuffle" type="button" class="btn btn-primary btn-img btn-lg slot-btn">FREE PARKING</div>
+					<!-- <div id="slotMachineButtonStop" type="button" class="btn btn-primary btn-lg">Stop!</div> -->
+				</div>
+			</div>
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			var machine4 = $("#casino1").slotMachine({
+				active: 0,	
+				delay: 450
+			});
+			var machine5 = $("#casino2").slotMachine({
+				active: 1,
+				delay: 800
+			});
+			machine6 = $("#casino3").slotMachine({
+				active: 2,
+				delay: 1150
+			});
+			var started = 0;
+			$("#slotMachineButtonShuffle").click(function () {
+				started = 3;
+				machine4.shuffle(5, onCompleteSlot2);
+				machine5.shuffle(5, onCompleteSlot2);
+				machine6.shuffle(5, onCompleteSlot2);
+
+			});
+			$("#slotMachineButtonStop").click(function () {
+				switch (started) {
+					case 3:
+						machine4.stop();
+						break;
+					case 2:
+						machine5.stop();
+						break;
+					case 1:
+						machine6.stop();
+						break;
+				}
+				started--;
+			});
+		});
+
+		var values = [];
+		var index = 0;
+		function onCompleteSlot2(active) {
+
+			values[index] = active;
+			index = index + 1;
+
+
+			// 0 cherry
+			// 1 orange
+			//2 grape
+			//3 bell
+			//4 bar
+			// 5 7's
+
+			if (index == 3) {
+				index = 0;
+				//				var dialog = new Messi("values: " + values[0] + " " + values[1] + " " + values[2]);
+				prize(values);
+				values = [];
+				//$('#casino').fireworks();
+
+
+			}
+		}
+
+		function StartRoll() {
+
+		}
+
+		function prize(values) {
+			var cherries = 0;
+			var oranges = 0;
+			var grapes = 0;
+			var bells = 0;
+			var bars = 0;
+			var sevens = 0;
+
+			var i;
+			for (i = 0; i < 3; i++) {
+				switch (values[i]) {
+					case 0:
+						cherries += 1;
+						break;
+					case 1:
+						oranges += 1;
+						break;
+					case 2:
+						grapes += 1;
+						break;
+					case 3:
+						bells += 1;
+						break;
+					case 4:
+						bars += 1;
+						break;
+					case 5:
+						sevens += 1;
+						break;
+					default:
+				}
+			}
+
+			if (cherries == 1) {
+								var dialog = new Messi("1 cherry! One Million dollars!");
+			}
+			if (cherries == 2) {
+								var dialog = new Messi("2 cherry! 4 Million Dollars!");
+
+			}
+			if (cherries == 3) {
+								var dialog = new Messi("3 Cherries!! 8 Million dollars!");
+
+			}
+			if (oranges == 3) {
+								var dialog = new Messi("3 oranges! 3 Million dollars!");
+			}
+
+			if (grapes == 3) {
+								var dialog = new Messi("3 grapes! 2 Million dollars!");
+
+			}
+			if (bells == 3) {
+								var dialog = new Messi("3 bells! 4 Million dollars");
+
+			}
+			if (bars == 3) {
+								var dialog = new Messi("3 bars! 5 Million dollars");
+
+			}
+
+			if (sevens == 3) {
+								var dialog = new Messi("3 sevens! 10 Million dollars!!!!!!!!!!!");
+				var dialog = new Messi('my message');
+
+			}
+		}
+
+
+	</script>
+
+</body>
+
+</html>
+
+<style>
+	.btn {
+		font-size: 150px;
+		line-height: normal;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+
+		white-space: normal !important;
+		word-wrap: break-word;
+		word-break: normal;
+	}
+
+	.btn-img:before {
+		margin-top: 20px;
+		content: "";
+		width: 160px;
+		height: 134px;
+		display: inline-block;
+		margin-right: 5px;
+		vertical-align: text-top;
+		background-color: transparent;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+
+	#ChanceButton {
+		width: 700px !important;
+		border-width: 5px;
+	}
+
+
+	#ChestButton {
+		width: 1700px !important;
+		border-width: 5px;
+	}
+	#slotMachineButtonShuffle {
+		width: 1500px !important;
+
+	}
+
+	.chance-button:before {
+		background-image: url(img/chance.png);
+	}
+
+	.chest-button:before {
+		background-image: url(img/chest.png);
+	}
+
+	.slot-btn:before {
+		background-image: url(img/free-parking.jpg);
+	}
+
+	#chance {
+		height: 450px !important;
+		padding-top: 0px !important;
+		border-bottom: 0px;
+	}
+
+	#chest {
+		margin-top: 0px !important;
+		border-bottom: 0px;
+		background-image: url('img/plane-chest.png');
+		height: 450px !important;
+
+	}
+
+	#casino {
+		background-repeat: no-repeat;
+	}
+
+	body {
+		background-color: #00aeff
+	}
+
+	.well {
+		margin-top: 20px;
+	}
+
+	#casino {
+		padding-top: 5%;
+		padding-bottom: 5%;
+		margin-top: 100px;
+		margin-bottom: 100px;
+		padding-bottom: 300px;	
+		border-bottom: 10px solid purple;
+
+	}
+
+	/*
+	#planeMachine {
+		height: 87px;
+	} */
+
+	.btn-group-chance {
+		width: 650px;
+		padding-right: 5%;	
+	}
+
+	.btn-group-casino {
+		top: -10px;
+		left: -15px;
+	}
+
+
+	.btn-group-justified {
+		width: initial;
+	}
+
+	.slot-btn {
+		width: 650px;
+		font-size: 60px;
+	}
+</style>
