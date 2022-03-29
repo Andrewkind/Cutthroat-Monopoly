@@ -1,11 +1,5 @@
 # [Try out Cutthroat Monopoly](https://andrewkind.github.io/Cutthroat-Monopoly/)
 
-#jQuery-SlotMachine [![Build Status](https://travis-ci.org/josex2r/jQuery-SlotMachine.svg?branch=master)](https://travis-ci.org/josex2r/jQuery-SlotMachine) [![Dependency Status](https://david-dm.org/josex2r/jQuery-SlotMachine.svg)](https://david-dm.org/josex2r/jQuery-SlotMachine) [![devDependency Status](https://david-dm.org/josex2r/jQuery-SlotMachine/dev-status.svg)](https://david-dm.org/josex2r/jQuery-SlotMachine#info=devDependencies)
-
-A simple, lightweight jQuery plugin to make slot machine animation effect.
-
-[Check the example page!] (http://josex2r.github.io/jQuery-SlotMachine/)
-
 ## Installation
 
 Install the component using [Bower](http://bower.io/):
